@@ -1,9 +1,8 @@
 ﻿using EspacioCalculadora;
-calculadora calc = new calculadora();
-int opcion;
-double num;
+Calculadora calc = new Calculadora();
+int opcion = -1;
 
-do
+while (opcion != 0)
 {
     Console.WriteLine("---CALCULADORA---");
     Console.WriteLine("1) Sumar");
@@ -14,36 +13,52 @@ do
     Console.WriteLine("0) salir");
 
     Console.WriteLine("Seleccione una opcion: ");
-   
-   /*if(!double.TryParse(Console.ReadLine(), out num)){
-    Console.WriteLine("error");
-   }*/
-   
-   opcion = Convert.ToInt32(Console.ReadLine());
-    if(opcion >= 1 && opcion <= 5){
-        Console.WriteLine("ingrese un numero: ");
-        num = Convert.ToDouble(Console.ReadLine());
-        switch (opcion)
+    if (int.TryParse(Console.ReadLine(), out opcion))
+    {
+        if (opcion == 0)
         {
-            case 1: 
-                calc.sumar(num);
-                break;
-            case 2:
-                calc.restar(num);
-                break;
-            case 3: 
-                calc.multiplicar(num);
-                break;
-            case 4:
-                calc.dividir(num);
-                break;
-            case 5:
-                calc.limpiar();
-                Console.WriteLine("calculadora reiniciada");
-                break;
+            break;
         }
-        Console.WriteLine($"Resultado : {num}");
+
+        if (opcion >= 1 && opcion <= 4)
+        {
+            Console.WriteLine("ingrese un numero: ");
+            if (double.TryParse(Console.ReadLine(), out double num))
+            {
+                switch (opcion)
+                {
+                    case 1:
+                        calc.Sumar(num);
+                        break;
+                    case 2:
+                        calc.Restar(num);
+                        break;
+                    case 3:
+                        calc.Multiplicar(num);
+                        break;
+                    case 4:
+                        calc.Dividir(num);
+                        break;
+                }
+                Console.WriteLine($"Resultado : {calc.Resultado}");
+            }
+            else
+            {
+                Console.WriteLine("Numero invalido");
+            }
+        }
+        else if (opcion == 5)
+        {
+            calc.Limpiar();
+            Console.WriteLine("Calculadora reiniciada a 0.");
+        }
+        else
+        {
+            Console.WriteLine("Opcion invalida");
+
+        }
+
     }
 
-
-} while (opcion != 0);
+}
+Console.WriteLine("Fin del programa");
